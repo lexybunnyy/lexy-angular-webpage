@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
+import { TableMovingGameComponent } from './table-moving-game/table-moving-game.component'
+const routes: Routes = [{ path: '**', component: TableMovingGameComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

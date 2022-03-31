@@ -4,7 +4,7 @@ nvm use v16.10.
 npm update
 -------------------------
 nvm install stable
-nvm install unstable
+nvm install unstablegit pull
 nvm use stable
 
 # first steps
@@ -13,3 +13,7 @@ nvm use v16.10.
 npm update
 npm install -g @angular/cli
 ng new 
+
+# fix nodejs problem
+nvm use v16.10
+npm update

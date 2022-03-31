@@ -3,18 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableMovingGameComponent } from './table-moving-game/table-moving-game.component';
 
+import { TimerComponent } from './timer/timer.component';
+
+
 @NgModule({
+  exports: [],
   declarations: [
     AppComponent,
-    TableMovingGameComponent
+    TableMovingGameComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@
     background-color: blue;
 }
 
-button {
+.gameButton {
     border: none;
     color: white;
     padding: 15px 15px;
@@ -14,4 +14,8 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+b {
+    font-size: 20px;
 }

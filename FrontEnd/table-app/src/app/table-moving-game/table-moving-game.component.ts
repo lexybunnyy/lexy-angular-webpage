@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { fromEvent, Subject, interval, Observable } from 'rxjs';
 import { combineLatestWith, mergeWith } from 'rxjs/operators';
-import { distinctUntilChanged, filter, debounceTime, tap, map, concatMap } from 'rxjs/operators';
-import { Pipe, PipeTransform } from '@angular/core';
+import { distinctUntilChanged, filter, debounceTime, tap, map, concatMap, scan } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table-moving-game',
@@ -18,32 +17,39 @@ export class TableMovingGameComponent implements OnInit {
   currentX : number = 0;
   currentY : number = 0;
   gameSize = 15;
+  basicTime = 10;
   secondsCounter: any;
-  currentGoalX : number = 2;
-  currentGoalY : number = 2;
-
+  goalX : number = 2;
+  goalY : number = 2;
+  timeLeft = this.basicTime;
+  gameTimer:any;
+  gameIsOn = false;
+  steps = 0;
+  
 
   public getClass(x: number, y: number) {
     const inCurrent = x === this.currentX && y === this.currentY;
-    const inGoal = x === this.  currentGoalX && y === this.currentGoalY;
+    const inGoal = x === this.goalX && y === this.goalY;
+
     if (inCurrent)
-      return 'red';
+      return 'red gameButton';
     
     if (inGoal)
-      return 'blue';
+      return 'blue gameButton';
 
-    return '';
+    return 'gameButton';
   }
-
 
   constructor() { 
     
     this.generateKeyActions();
 
-    this.secondsCounter = interval(1000).subscribe(n => {
-        this.message = `It's been ${n + 1} seconds since subscribing!`;
-    })
-
+    this.gameTimer = interval(1000)
+    .pipe(
+      filter(x => this.gameIsOn),
+      map(x => --this.timeLeft),
+      tap(console.log))
+    .subscribe(() => this.checkGame());
   }
 
   ngOnInit(): void {
@@ -52,7 +58,6 @@ export class TableMovingGameComponent implements OnInit {
   ngOnDestroy(): void {
     this.secondsCounter.unsubscribe();
   }
-
 
   generateKeyActions() {
     this.generateKeyAction('ArrowDown', 'X', 1);
@@ -86,10 +91,39 @@ export class TableMovingGameComponent implements OnInit {
     this.keyActions.get(codeStr)?.subscribe(
       result => {
         this.move(param, move === 'X');
+        this.checkGame();
     });
   }
 
+  startGame() {
+    this.timeLeft = this.basicTime;
+    this.steps = 0;
+    this.gameIsOn = true;
+    this.currentX = 0;
+    this.currentY = 0;
+    this.goalX = 14;
+    this.goalY = 14;
+  }
+  endGame(win: boolean) {
+    this.gameIsOn = false;
+    if (win) alert("Win")
+    else alert("You lose!")
+  }
+
+  checkGame() {
+    if(this.currentX === this.goalX && this.currentY === this.goalY) {
+      this.endGame(true);
+      return; 
+    }
+
+    if(this.timeLeft <= 0){
+      this.endGame(false);
+      return; 
+    }
+  }
+
   move(where: number, isX: boolean) {
+
     let current = isX ? this.currentX : this.currentY;
     current = current + where;
 
@@ -98,6 +132,7 @@ export class TableMovingGameComponent implements OnInit {
 
     if (isX) this.currentX = current;
     else this.currentY = current;
+    ++this.steps;
   }
 
 

@@ -14,31 +14,28 @@ export class TableMovingGameComponent implements OnInit {
 
   keyActions: Map<String, Observable<string>> = new Map<string, Observable<string>>();
   message = 'table-moving-game works!';
-  currentX : number = 0;
-  currentY : number = 0;
   gameSize = 15;
+  current: [number, number] = [0, 0]
+  goal: [number, number] = [this.gameSize, this.gameSize]
   basicTime = 10;
-  secondsCounter: any;
-  goalX : number = 2;
-  goalY : number = 2;
   timeLeft = this.basicTime;
   gameTimer:any;
   gameIsOn = false;
   steps = 0;
   
-
   public getClass(x: number, y: number) {
-    const inCurrent = x === this.currentX && y === this.currentY;
-    const inGoal = x === this.goalX && y === this.goalY;
-
+    const inCurrent = x === this.current[0] && y === this.current[1];
+    const inGoal = x === this.goal[0] && y === this.goal[1];
+    let result = 'gameButton';
     if (inCurrent)
-      return 'red gameButton';
+      return result + ' red';
     
     if (inGoal)
-      return 'blue gameButton';
+      return result + ' blue';
 
-    return 'gameButton';
+    return result;
   }
+
 
   constructor() { 
     
@@ -56,7 +53,6 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.secondsCounter.unsubscribe();
   }
 
   generateKeyActions() {
@@ -99,11 +95,10 @@ export class TableMovingGameComponent implements OnInit {
     this.timeLeft = this.basicTime;
     this.steps = 0;
     this.gameIsOn = true;
-    this.currentX = 0;
-    this.currentY = 0;
-    this.goalX = 14;
-    this.goalY = 14;
+    this.current = [ 0 , 0 ];
+    this.goal = [this.gameSize - 1, this.gameSize - 1]
   }
+
   endGame(win: boolean) {
     this.gameIsOn = false;
     if (win) alert("Win")
@@ -111,7 +106,7 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   checkGame() {
-    if(this.currentX === this.goalX && this.currentY === this.goalY) {
+    if(this.isWin()) {
       this.endGame(true);
       return; 
     }
@@ -122,16 +117,20 @@ export class TableMovingGameComponent implements OnInit {
     }
   }
 
+  isWin() {
+    return this.current[0] === this.goal[0] && this.current[1] === this.goal[1];
+  }
+
   move(where: number, isX: boolean) {
 
-    let current = isX ? this.currentX : this.currentY;
+    let current = isX ? this.current[0] : this.current[1];
     current = current + where;
 
     if (current > this.gameSize - 1) current = 0;
     if (current == -1) current = this.gameSize -1;
 
-    if (isX) this.currentX = current;
-    else this.currentY = current;
+    if (isX) this.current[0] = current;
+    else this.current[1] = current;
     ++this.steps;
   }
 

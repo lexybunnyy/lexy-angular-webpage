@@ -63,32 +63,28 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   generateKeyAction(codeStr: String, move: String, param: number): void {
-    const keyDowns = fromEvent<KeyboardEvent>(document, 'keydown');
-    let keyDownFilter = keyDowns.pipe(
-      filter(event => event.key === codeStr),
-      //tap(x => console.log('tap1')),
+    const keyDownEvent = fromEvent<KeyboardEvent>(document, 'keydown').pipe(
+      filter(event => event.key === codeStr), //tap(x => console.log('tap1')),
+    );
+    const keyUpEvent = fromEvent<KeyboardEvent>(document, 'keyup').pipe(
+      filter(event => event.key === codeStr), //tap(x => console.log('tap2')),
     );
 
-    const keyUps = fromEvent<KeyboardEvent>(document, 'keyup');
-    let keyUpFilter = keyUps.pipe(
-      filter(event => event.key === codeStr),
-      //tap(x => console.log('tap2')),
+    const keyAction = keyDownEvent.pipe(
+      debounceTime(100),
+      combineLatestWith(keyUpEvent),
+      debounceTime(100), //tap(x => console.log('tap3', x)),
+      map((events) => events[1].code), //tap(x => console.log('tap4')),
     );
 
-    this.keyActions.set(codeStr, keyDownFilter.pipe(
-      debounceTime(100),
-      combineLatestWith(keyUpFilter),
-      debounceTime(100),
-      //tap(x => console.log('tap3', x)),
-      map((events) => events[1].code),
-      //tap(x => console.log('tap4')),
-    ));
-
-    this.keyActions.get(codeStr)?.subscribe(
+    keyAction.subscribe(
       result => {
         this.move(param, move === 'X');
         this.checkGame();
     });
+
+
+    this.keyActions.set(codeStr, keyAction);
   }
 
   startGame() {

@@ -1,8 +1,35 @@
-<p>Game Table<p>
-<nav>
-<ul>
-    <li><a routerLink="/timer" routerLinkActive="active">timer</a></li>
-    <li><a routerLink="/tableGame" routerLinkActive="active">tableGame</a></li>
-</ul>
-</nav>
+
+<mat-toolbar color="primary">
+    <span>LexyBunnyy's Website</span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon>home</mat-icon>
+    </button>
+    <button mat-button routerLink="/cv"><span class="material-icons">
+        portrait
+        </span>CV</button>
+    <button mat-button [matMenuTriggerFor]="menu">
+        <span class="material-icons">
+            calculate
+        </span>
+        References</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/timer">Timer</button>
+        <button mat-menu-item routerLink="/tableGame">Table Game</button>
+    </mat-menu>
+    <span class="example-spacer"></span>
+    <button mat-icon-button >
+        <a href="https://github.com/lexybunnyy">
+            <img class="icon" src="assets/GitHub-Mark-Light-32px.png"/>
+        </a>
+        
+    </button>
+    <button mat-icon-button >
+        <a href="https://www.linkedin.com/in/alexandra-nyilas-307284b5/">
+            <img class="icon" src="assets/LI-In-Bug.png"/>
+        </a>
+        
+    </button>
+
+</mat-toolbar>
+
 <router-outlet></router-outlet>

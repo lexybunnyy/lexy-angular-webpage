@@ -7,19 +7,22 @@ import { TableMovingGameComponent } from './table-moving-game/table-moving-game.
 
 import { TimerComponent } from './timer/timer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {MaterialListModule} from './material.module';
+import { MyWebCvComponent } from './my-web-cv/my-web-cv.component';
 
 @NgModule({
   exports: [],
   declarations: [
     AppComponent,
     TableMovingGameComponent,
-    TimerComponent
+    TimerComponent,
+    MyWebCvComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

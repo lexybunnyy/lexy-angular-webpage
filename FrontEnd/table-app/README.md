@@ -1,3 +1,9 @@
+# Start
+npm i
+nvm install v16.10.0
+npm update
+ng serve -o
+
 # TableApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.

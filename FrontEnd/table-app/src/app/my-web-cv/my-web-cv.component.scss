@@ -1,44 +1,69 @@
+mat-grid-tile div {
+    text-align: left !important;
+    //justify-content: flex-start !important;
+    width: 100%;
+    //height: 100%;
+    //background-color: rgb(207, 219, 234);
+}
+
+.center {
+    //display: flex;
+    padding-top: 2%;
+    padding-left: 3%;
+}
+
+.col-sm-2 img {
+    max-width: 100px;
+}
+
+.mspicture {
+    max-width: 120px;
+    height: 50px;
+    background-image: url('/assets/morgan.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.picture img {
+    height: 100px;
+}
+.labelPadding {
+    padding: 10px;
+}
+.basePadding {
+    padding: 10px;
+}
+
+.label {
+    font-size: 20px;   
+}
 .name {
-    width: 100%;
-    height: 100%;
-    background-color: rgb(135, 68, 211);
-    text-align: left !important;
-    justify-content: flex-start !important;
-    padding-top: 10px;
-    padding-left: 10px;
+    font-size: 30px;   
 }
-.about {
-    padding-top: 10px;
-    padding-left: 10px;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(181, 139, 210, 0.547);
-
-    text-align: left !important;
-    justify-content: flex-start !important;
-}
-
-.labels {
-    background-color: rgb(189, 158, 226);
-    width: 100%;
-    text-align: left !important;
-}
-
-.cv {
-    height: 100%;
-    width: 100%;
-    padding-top: 10px;
-    padding-left: 10px;
-}
-
-.ms {
-    height: 100%;
-    width: 100%;
-    padding-top: 10px;
-    padding-left: 10px;
-}
-
 
 h1 {
+    font-weight: bold;
+    color: rgb(0, 60, 134);
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+h2 {
+    font-weight: bold;
+    margin: 0px;
+    font-size: 13px;
+}
 
+.name {
+    padding: 0;
+    padding-top: 0;
+    margin: 0;
+}
+
+mat-grid-tile img {
+    max-width: 150px;
+}
+
+.ms1 {
+    max-height: 200px;
 }

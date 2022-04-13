@@ -9,6 +9,7 @@ import { TimerComponent } from './timer/timer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialListModule} from './material.module';
 import { MyWebCvComponent } from './my-web-cv/my-web-cv.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   exports: [],
@@ -22,7 +23,8 @@ import { MyWebCvComponent } from './my-web-cv/my-web-cv.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialListModule
+    MaterialListModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

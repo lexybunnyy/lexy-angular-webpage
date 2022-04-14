@@ -1,9 +1,13 @@
 <p>This game's reason is to understand and play the RxJS Libary</p>
 
 <p>
-    <button (click)="startGame()">Start</button>
+    <button mat-flat-button color="primary" (click)="startGame()">
+        Let's Start
+    </button>
+
     You had <b>{{timeLeft}}</b> seconds ang you got <b>{{steps}}</b> steps
 </p>
+
 
 <div *ngFor="let gx of generateTable();let x=index;">
     <button *ngFor="let gy of generateTable();let y=index;" 

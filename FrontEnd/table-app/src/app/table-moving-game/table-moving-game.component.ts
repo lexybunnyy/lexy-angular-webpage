@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fromEvent, Subject, interval, Observable } from 'rxjs';
 import { combineLatestWith, mergeWith } from 'rxjs/operators';
 import { distinctUntilChanged, filter, debounceTime, tap, map, concatMap, scan } from 'rxjs/operators';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'app-table-moving-game',
@@ -22,6 +23,7 @@ export class TableMovingGameComponent implements OnInit {
   gameTimer:any;
   gameIsOn = false;
   steps = 0;
+  alertService: AlertService;
   
   public getClass(x: number, y: number) {
     const inCurrent = x === this.current[0] && y === this.current[1];
@@ -36,17 +38,15 @@ export class TableMovingGameComponent implements OnInit {
     return result;
   }
 
-
-  constructor() { 
-    
+  constructor(alertService: AlertService) { 
+    this.alertService = alertService;
     this.generateKeyActions();
 
     this.gameTimer = interval(1000)
     .pipe(
       filter(x => this.gameIsOn),
-      map(x => --this.timeLeft),
-      tap(console.log))
-    .subscribe(() => this.checkGame());
+      map(x => --this.timeLeft), //tap(console.log)
+    ).subscribe(() => this.checkGame());
   }
 
   ngOnInit(): void {
@@ -97,11 +97,15 @@ export class TableMovingGameComponent implements OnInit {
 
   endGame(win: boolean) {
     this.gameIsOn = false;
-    if (win) alert("Win")
-    else alert("You lose!")
+    if (win) this.alertService.alertMessage('Congratulations! You win!')
+    else this.alertService.alertMessage('Sorry, you lose!', 'danger')
   }
 
   checkGame() {
+    if(!this.gameIsOn) {
+      return;
+    }
+
     if(this.isWin()) {
       this.endGame(true);
       return; 

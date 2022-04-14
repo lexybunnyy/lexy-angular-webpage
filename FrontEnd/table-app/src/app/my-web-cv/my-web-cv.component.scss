@@ -13,13 +13,31 @@ mat-grid-tile div {
 }
 
 .col-sm-2 img {
-    max-width: 100px;
+    max-width: 120px;
 }
 
 .mspicture {
     max-width: 120px;
     height: 50px;
     background-image: url('/assets/morgan.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.eltepicture {
+    max-width: 80px;
+    height: 80px;
+    background-image: url('/assets/elte_logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.vccpicture {
+    max-width: 120px;
+    height: 50px;
+    background-image: url('/assets/vcc.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

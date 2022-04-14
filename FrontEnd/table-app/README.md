@@ -1,6 +1,6 @@
 # Start
 npm i
-nvm install v16.10.0
+nvm use -g v16.10.0
 npm update
 ng serve -o
 

@@ -19,4 +19,8 @@ export class TableIndexArray extends Array<TableIndex> {
   public includesI(x: number, y: number): boolean {
     return this.some(v => v.equalsI(x, y))
   }
+
+  public clear() {
+    this.splice(0, this.length);
+  }
 }

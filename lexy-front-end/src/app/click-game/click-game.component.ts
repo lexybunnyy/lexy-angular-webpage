@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../_services/alert.service';
 import { TableIndex, TableIndexArray } from '../_helpers/table-index';
 import { Utils } from '../_helpers/utils';
+import { interval, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-click-game',
@@ -14,13 +15,18 @@ export class ClickGameComponent implements OnInit {
   gameSize = 15;
   actualSteps = 0;
   isOnGoing = false;
+  timeLeft = 0;
 
+  gameTimer: Observable<number>;
+  gameTimerSubscribction: any;
   goalList: TableIndexArray = new TableIndexArray();
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    
+  }
 
   constructor(public alertService: AlertService) {
-    this.startGame();
+    this.gameTimer = interval(1000);
   }
 
   public getTableClass(x: number, y: number) {
@@ -32,16 +38,21 @@ export class ClickGameComponent implements OnInit {
   }
 
   public onTableClick(x: number, y: number) {
+    if (!this.isOnGoing) {
+      return;
+    };
+
     this.actualSteps++;
     if (!this.goalList.includesI(x, y)) {
       this.alertService.alertMessage('You lose!', 'danger');
-      this.isOnGoing = false;
+      this.endGame();
     }
+    
     this.generateGoalList();
   }
 
   public generateGoalList() {
-    this.goalList = new TableIndexArray();
+    this.goalList.clear();
     for (let xi = 0; xi < 5; xi++) {
       let x = Utils.getRandom(this.gameSize - 1);
       let y = Utils.getRandom(this.gameSize - 1);
@@ -50,8 +61,25 @@ export class ClickGameComponent implements OnInit {
   }
 
   public startGame() {
+    this.actualSteps = 0;
+    this.timeLeft = 10;
     this.isOnGoing = true;
     this.generateGoalList();
+
+    this.gameTimerSubscribction =  this.gameTimer.subscribe(() => 
+    {
+      --this.timeLeft;
+      if (this.timeLeft <= 0) {
+        this.alertService.alertMessage('A játék véget ért!', 'info')
+        this.endGame();
+      }
+    })
+  }
+
+  public endGame() {
+    this.gameTimerSubscribction?.unsubscribe()
+    this.goalList.clear();
+    this.isOnGoing = false;
   }
 
   generateTable(): Array<any> {

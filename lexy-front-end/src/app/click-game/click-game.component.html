@@ -1,11 +1,24 @@
-<h1>Click-game</h1>
-<p>Rules: You need to click as fast as possible to the green buttons
-    <br> If you click anywhere else, you lose!
-</p>
-
-<div *ngFor="let gx of generateTable();let x=index;">
-    <button *ngFor="let gy of generateTable();let y=index;" 
-            [ngClass]="getTableClass(x,y)"
-            (click)="onTableClick(x,y)"> 
-    </button>
-<div>
+<div class="row">
+    <div class="col-sm-3">
+        <h1>Click-game</h1>
+        <p>
+            <button mat-flat-button color="primary" (click)="startGame()">
+                Let's Start
+            </button>
+            <br>
+            Time left: <b>{{timeLeft}}</b><br>score: <b>{{actualSteps}}</b> steps
+        </p>
+        <h2>Rules:</h2>
+        <p>You need to click as fast as possible to the green buttons
+            <br> If you click anywhere else, you lose!
+        </p>
+    </div>
+    <div class="col-sm-9">
+        <div *ngFor="let gx of generateTable();let x=index;">
+            <button *ngFor="let gy of generateTable();let y=index;" 
+                    [ngClass]="getTableClass(x,y)"
+                    (click)="onTableClick(x,y)"> 
+            </button>
+        <div>
+    </div>
+</div>

@@ -1,1 +1,11 @@
-<p>click-game works!</p>
+<h1>Click-game</h1>
+<p>Rules: You need to click as fast as possible to the green buttons
+    <br> If you click anywhere else, you lose!
+</p>
+
+<div *ngFor="let gx of generateTable();let x=index;">
+    <button *ngFor="let gy of generateTable();let y=index;" 
+            [ngClass]="getTableClass(x,y)"
+            (click)="onTableClick(x,y)"> 
+    </button>
+<div>

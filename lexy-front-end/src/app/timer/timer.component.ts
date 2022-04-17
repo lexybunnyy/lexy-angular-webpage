@@ -13,15 +13,13 @@ export class TimerComponent implements OnInit {
       delay(param*1000)
     )
   }
-
-
   constructor() { 
     from([1,2,3,4]).pipe(
       map(param => this.getData(param)),
       mergeAll(),
       scan((acc, curr) => acc + curr, "")
     ).subscribe(val => {
-      console.log(val)
+      //console.log(val)
     })
   
   }

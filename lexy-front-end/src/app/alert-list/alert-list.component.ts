@@ -17,7 +17,7 @@ export class AlertListComponent {
   
   constructor(alertService: AlertService) {
     this.alerts = new Array<Alert>();
-    alertService.getAlertObservable().subscribe(x => this.add(x));
+    alertService.getAlertObservable().subscribe(this.add.bind(this));
   }
 
   close(alert: Alert) {

@@ -3,6 +3,9 @@ export class Utils {
         var range = high - low + 1;
         var r = Math.floor( range*Math.random() + .5);
         return Math.min(low + r, high);
-      };
+    };
 
+    public static blockScrolling(event: KeyboardEvent) {
+      event.preventDefault();
+    }
 }

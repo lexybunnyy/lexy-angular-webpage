@@ -1,5 +1,5 @@
 import { ListKeyManager } from '@angular/cdk/a11y';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertService } from '../_services/alert.service';
 import { TableIndex, TableIndexArray } from '../_helpers/table-index';
 import { Utils } from '../_helpers/utils';
@@ -25,6 +25,10 @@ export class ClickGameComponent implements OnInit {
     
   }
 
+  ngOnDestroy():void {
+    this.gameTimerSubscribction?.unsubscribe();
+  }
+  
   constructor(public alertService: AlertService) {
     this.gameTimer = interval(1000);
   }
@@ -61,6 +65,7 @@ export class ClickGameComponent implements OnInit {
   }
 
   public startGame() {
+    this.alertService.clearAlerts();
     this.actualSteps = 0;
     this.timeLeft = 10;
     this.isOnGoing = true;
@@ -70,7 +75,7 @@ export class ClickGameComponent implements OnInit {
     {
       --this.timeLeft;
       if (this.timeLeft <= 0) {
-        this.alertService.alertMessage('A játék véget ért!', 'info')
+        this.alertService.alertMessage('The game has ended. Your points:' + this.actualSteps, 'info')
         this.endGame();
       }
     })

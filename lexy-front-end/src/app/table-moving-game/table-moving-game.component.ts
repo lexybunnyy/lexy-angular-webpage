@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { fromEvent, Subject, interval, Observable } from 'rxjs';
+import { fromEvent, Subject, interval, Observable, Subscription } from 'rxjs';
 import { combineLatestWith, mergeWith } from 'rxjs/operators';
 import { distinctUntilChanged, filter, debounceTime, tap, map, concatMap, scan } from 'rxjs/operators';
 import { AlertService } from '../_services/alert.service';
@@ -15,7 +15,7 @@ export class TableMovingGameComponent implements OnInit {
 
   public keyUp = new Subject<KeyboardEvent>();
 
-  keyActions: Map<String, Observable<string>> = new Map<string, Observable<string>>();
+  subscriptions = new Subscription();
   message = 'table-moving-game works!';
   gameSize = 15;
   current: TableIndex = new TableIndex(0, 0);
@@ -45,16 +45,18 @@ export class TableMovingGameComponent implements OnInit {
     this.generateKeyActions();
 
     this.gameTimer = interval(1000)
-    .pipe(
-      filter(x => this.gameIsOn),
-      map(x => --this.timeLeft), //tap(console.log)
-    ).subscribe(() => this.checkGame());
+      .pipe(
+        filter(x => this.gameIsOn),
+        map(x => --this.timeLeft), //tap(console.log)
+      ).subscribe(() => this.checkGame());
+    this.subscriptions.add(this.gameTimer);
   }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   generateKeyActions() {
@@ -65,11 +67,14 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   generateKeyAction(codeStr: String, xy: String, param: number): void {
+
     const keyDownEvent = fromEvent<KeyboardEvent>(document, 'keydown').pipe(
+      tap(e => Utils.blockScrolling(e)),
       filter(event => event.key === codeStr), //tap(x => console.log('tap1')),
     );
     const keyUpEvent = fromEvent<KeyboardEvent>(document, 'keyup').pipe(
-      filter(event => event.key === codeStr), //tap(x => console.log('tap2')),
+      filter(event => event.key === codeStr), 
+      tap(x => console.log('tap2')),
     );
 
     const keyAction = keyDownEvent.pipe(
@@ -79,14 +84,14 @@ export class TableMovingGameComponent implements OnInit {
       map((events) => events[1].code), //tap(x => console.log('tap4')),
     );
 
-    keyAction.subscribe(
+    let subscription = keyAction.subscribe(
       result => {
+        console.log(result, "Hello");
         this.move(param, xy);
         this.checkGame();
     });
 
-
-    this.keyActions.set(codeStr, keyAction);
+    this.subscriptions.add(subscription);
   }
 
   randomIndex() {
@@ -94,6 +99,7 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   startGame() {
+    this.alertService.clearAlerts();
     this.timeLeft = this.basicTime;
     this.steps = 0;
     this.gameIsOn = true;
@@ -103,7 +109,7 @@ export class TableMovingGameComponent implements OnInit {
 
   endGame(win: boolean) {
     this.gameIsOn = false;
-    if (win) this.alertService.alertMessage('Congratulations! You win!')
+    if (win) this.alertService.alertMessage('Congratulations! You win with ' + this.steps + " steps")
     else this.alertService.alertMessage('Sorry, you lose!', 'danger')
   }
 

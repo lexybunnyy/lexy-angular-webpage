@@ -1,16 +1,27 @@
-<p>This game's reason is to understand and play the RxJS Libary</p>
-
-<p>
-    <button mat-flat-button color="primary" (click)="startGame()">
-        Let's Start
-    </button>
-
-    You had <b>{{timeLeft}}</b> seconds ang you got <b>{{steps}}</b> steps
-</p>
-
-
-<div *ngFor="let gx of generateTable();let x=index;">
-    <button *ngFor="let gy of generateTable();let y=index;" 
-            [ngClass]="getClass(x,y)"> 
-    </button>
-<div>
+<div class="container p-0 m-0">
+    <div class="row p-2">
+        <div class="col-sm-3">
+            <h1>Moving Game</h1>
+            <button mat-flat-button color="primary" (click)="startGame()">
+                Let's Start
+            </button>
+            <p class="mt-3">
+                You had <b>{{timeLeft}}</b> seconds<br> 
+                Steps: <b>{{steps}}</b>
+            </p>
+            <h2>Rules:</h2>
+            <p>You need to go as fast as possible to the blue area 
+                <br> If your time ends, you lose.
+            </p>
+            <h2>About</h2>
+            <p>This game's reason is to understand and play the RxJS Libary</p>
+        </div>
+        <div class="col-sm-9">
+            <div *ngFor="let gx of generateTable();let x=index;">
+                <button *ngFor="let gy of generateTable();let y=index;" 
+                        [ngClass]="getClass(x,y)"> 
+                </button>
+            <div>
+        </div>
+    </div>
+</div>

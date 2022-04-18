@@ -3,6 +3,8 @@ import { fromEvent, Subject, interval, Observable } from 'rxjs';
 import { combineLatestWith, mergeWith } from 'rxjs/operators';
 import { distinctUntilChanged, filter, debounceTime, tap, map, concatMap, scan } from 'rxjs/operators';
 import { AlertService } from '../_services/alert.service';
+import { TableIndex, TableIndexArray } from '../_helpers/table-index';
+import { Utils } from '../_helpers/utils';
 
 @Component({
   selector: 'app-table-moving-game',
@@ -16,8 +18,8 @@ export class TableMovingGameComponent implements OnInit {
   keyActions: Map<String, Observable<string>> = new Map<string, Observable<string>>();
   message = 'table-moving-game works!';
   gameSize = 15;
-  current: [number, number] = [0, 0]
-  goal: [number, number] = [this.gameSize, this.gameSize]
+  current: TableIndex = new TableIndex(0, 0);
+  goal: TableIndex = new TableIndex(this.gameSize, this.gameSize)
   basicTime = 10;
   timeLeft = this.basicTime;
   gameTimer:any;
@@ -26,8 +28,8 @@ export class TableMovingGameComponent implements OnInit {
   alertService: AlertService;
   
   public getClass(x: number, y: number) {
-    const inCurrent = x === this.current[0] && y === this.current[1];
-    const inGoal = x === this.goal[0] && y === this.goal[1];
+    const inCurrent = this.current.equalsI(x, y);
+    const inGoal = this.goal.equalsI(x, y);
     let result = 'gameButton';
     if (inCurrent)
       return result + ' red';
@@ -56,13 +58,13 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   generateKeyActions() {
-    this.generateKeyAction('ArrowDown', 'X', 1);
-    this.generateKeyAction('ArrowRight', 'Y', 1);
-    this.generateKeyAction('ArrowLeft', 'Y', -1);
-    this.generateKeyAction('ArrowUp', 'X', -1);
+    this.generateKeyAction('ArrowDown', 'x', 1);
+    this.generateKeyAction('ArrowRight', 'y', 1);
+    this.generateKeyAction('ArrowLeft', 'y', -1);
+    this.generateKeyAction('ArrowUp', 'x', -1);
   }
 
-  generateKeyAction(codeStr: String, move: String, param: number): void {
+  generateKeyAction(codeStr: String, xy: String, param: number): void {
     const keyDownEvent = fromEvent<KeyboardEvent>(document, 'keydown').pipe(
       filter(event => event.key === codeStr), //tap(x => console.log('tap1')),
     );
@@ -79,7 +81,7 @@ export class TableMovingGameComponent implements OnInit {
 
     keyAction.subscribe(
       result => {
-        this.move(param, move === 'X');
+        this.move(param, xy);
         this.checkGame();
     });
 
@@ -87,12 +89,16 @@ export class TableMovingGameComponent implements OnInit {
     this.keyActions.set(codeStr, keyAction);
   }
 
+  randomIndex() {
+    return Utils.getRandom(this.gameSize - 1);
+  }
+
   startGame() {
     this.timeLeft = this.basicTime;
     this.steps = 0;
     this.gameIsOn = true;
-    this.current = [ 0 , 0 ];
-    this.goal = [this.gameSize - 1, this.gameSize - 1]
+    this.current.set(0, 0);
+    this.goal.set(this.randomIndex(), this.randomIndex());
   }
 
   endGame(win: boolean) {
@@ -118,19 +124,20 @@ export class TableMovingGameComponent implements OnInit {
   }
 
   isWin() {
-    return this.current[0] === this.goal[0] && this.current[1] === this.goal[1];
+    return this.current.equalsO(this.goal);
   }
 
-  move(where: number, isX: boolean) {
-
-    let current = isX ? this.current[0] : this.current[1];
+  move(where: number, xy: String) {
+    let current = this.current.getXorY(xy);
     current = current + where;
 
-    if (current > this.gameSize - 1) current = 0;
-    if (current == -1) current = this.gameSize -1;
+    if (current > this.gameSize - 1) 
+      current = 0;
 
-    if (isX) this.current[0] = current;
-    else this.current[1] = current;
+    if (current == -1) 
+      current = this.gameSize -1;
+
+    this.current.setXorY(xy, current)
     ++this.steps;
   }
 

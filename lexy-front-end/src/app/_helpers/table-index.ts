@@ -9,6 +9,23 @@ export class TableIndex {
     public equalsO(other: TableIndex) {
       return this.x === other.x && this.y === other.y;
     }
+
+    public set(x: number, y: number) {
+      this.x = x;
+      this.y = y;
+    }
+
+    public getXorY(xy: String) {
+      return xy === 'x' ? this.x : this.y;
+    }
+
+    public setXorY(xy: String, value: number) {
+      if (xy === 'x') {
+        this.x = value;
+      } else {
+        this.y = value;
+      }
+    }
   }
 
 export class TableIndexArray extends Array<TableIndex> {

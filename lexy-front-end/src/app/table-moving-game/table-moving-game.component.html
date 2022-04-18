@@ -1,6 +1,6 @@
 <div class="container p-0 m-0">
-    <div class="row p-2">
-        <div class="col-sm-3">
+    <div class="row p-3">
+        <div class="col-md-4 border border-primary border-3 rounded" style="overflow:scroll; height:500px;" >
             <h1>Moving Game</h1>
             <button mat-flat-button color="primary" (click)="startGame()">
                 Let's Start
@@ -15,8 +15,21 @@
             </p>
             <h2>About</h2>
             <p>This game's reason is to understand and play the RxJS Libary</p>
+            <h2>Relevant codes:</h2>
+            <h3>Table-Moving-Game</h3>
+            <ul>
+                <li><a href="https://github.com/lexybunnyy/angularLexybunnyyWebpage/blob/main/lexy-front-end/src/app/table-moving-game/table-moving-game.component.ts">table-moving-game.component.ts</a></li>
+                <li><a href="https://github.com/lexybunnyy/angularLexybunnyyWebpage/tree/main/lexy-front-end/src/app/table-moving-game">table-moving-game folder</a></li>
+                <li><a href="https://github.com/lexybunnyy/angularLexybunnyyWebpage/blob/main/lexy-front-end/src/app/_helpers/table-index.ts">_helpers/table-index.ts</a></li>
+            </ul>
+            <h3>Alert-service</h3>
+            <ul>
+                <li><a href="https://github.com/lexybunnyy/angularLexybunnyyWebpage/blob/main/lexy-front-end/src/app/_services/alert.service.ts">alert.service.ts</a></li>
+                <li><a href="https://github.com/lexybunnyy/angularLexybunnyyWebpage/tree/main/lexy-front-end/src/app/alert-list">alert-list component</a></li>
+                <li><a href="https://github.com/lexybunnyy/angularLexybunnyyWebpage/blob/main/lexy-front-end/src/app/_services/alert-model.ts">alert-model.ts</a></li>
+            </ul>
         </div>
-        <div class="col-sm-9">
+        <div class="col-md-8">
             <div *ngFor="let gx of generateTable();let x=index;">
                 <button *ngFor="let gy of generateTable();let y=index;" 
                         [ngClass]="getClass(x,y)"> 

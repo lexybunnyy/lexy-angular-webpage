@@ -11,3 +11,11 @@
     filter: brightness(1000%);
     
 }
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

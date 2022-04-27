@@ -2,7 +2,7 @@
 
 # node js updates - fix the node js
 nvm list
-nvm use v16.10.
+nvm use -g v16.10.
 npm update
 -------------------------
 nvm install stable

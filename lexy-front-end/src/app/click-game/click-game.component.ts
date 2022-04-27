@@ -33,12 +33,24 @@ export class ClickGameComponent implements OnInit {
     this.gameTimer = interval(1000);
   }
 
-  public getTableClass(x: number, y: number) {
-    let result = 'gameButton'
-    if (this.goalList.includesI(x, y)) {
-      result += " green";
-    }
-    return result;
+  public startNewGame() {
+    this.endGame();
+    this.startGame();
+  }
+
+  public startGame() {
+    this.alertService.clearAlerts();
+    this.actualSteps = 0;
+    this.timeLeft = 10;
+    this.isOnGoing = true;
+    this.generateGoalList();
+    this.gameTimerSubscribction = this.gameTimer.subscribe(() => this.gameTimeTick())
+  }
+
+  public endGame() {
+    this.gameTimerSubscribction?.unsubscribe()
+    this.goalList.clear();
+    this.isOnGoing = false;
   }
 
   public onTableClick(x: number, y: number) {
@@ -55,6 +67,14 @@ export class ClickGameComponent implements OnInit {
     this.generateGoalList();
   }
 
+  public gameTimeTick() {
+    --this.timeLeft;
+    if (this.timeLeft <= 0) {
+      this.alertService.alertMessage('The game has ended. Your points:' + this.actualSteps, 'info')
+      this.endGame();
+    }
+  }
+
   public generateGoalList() {
     this.goalList.clear();
     for (let xi = 0; xi < 5; xi++) {
@@ -64,31 +84,15 @@ export class ClickGameComponent implements OnInit {
     }
   }
 
-  public startGame() {
-    this.alertService.clearAlerts();
-    this.actualSteps = 0;
-    this.timeLeft = 10;
-    this.isOnGoing = true;
-    this.generateGoalList();
-
-    this.gameTimerSubscribction =  this.gameTimer.subscribe(() => 
-    {
-      --this.timeLeft;
-      if (this.timeLeft <= 0) {
-        this.alertService.alertMessage('The game has ended. Your points:' + this.actualSteps, 'info')
-        this.endGame();
-      }
-    })
+  public getTableClass(x: number, y: number) {
+    let result = 'gameButton'
+    if (this.goalList.includesI(x, y)) {
+      result += " green";
+    }
+    return result;
   }
-
-  public endGame() {
-    this.gameTimerSubscribction?.unsubscribe()
-    this.goalList.clear();
-    this.isOnGoing = false;
-  }
-
+  
   generateTable(): Array<any> {
     return new Array(this.gameSize);
   }
-
 }

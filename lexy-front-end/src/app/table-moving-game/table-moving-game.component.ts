@@ -74,7 +74,7 @@ export class TableMovingGameComponent implements OnInit {
     );
     const keyUpEvent = fromEvent<KeyboardEvent>(document, 'keyup').pipe(
       filter(event => event.key === codeStr), 
-      tap(x => console.log('tap2')),
+      //tap(x => console.log('tap2')),
     );
 
     const keyAction = keyDownEvent.pipe(
@@ -86,7 +86,6 @@ export class TableMovingGameComponent implements OnInit {
 
     let subscription = keyAction.subscribe(
       result => {
-        console.log(result, "Hello");
         this.move(param, xy);
         this.checkGame();
     });

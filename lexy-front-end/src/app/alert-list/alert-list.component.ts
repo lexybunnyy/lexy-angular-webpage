@@ -27,7 +27,6 @@ export class AlertListComponent {
   }
 
   clear(id: number) {
-    console.log(id)
     this.alerts = this.alerts.filter( alert => id !== -1 && alert.id !== id );
   }
 

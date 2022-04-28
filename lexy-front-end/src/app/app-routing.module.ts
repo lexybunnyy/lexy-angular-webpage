@@ -9,8 +9,7 @@ import { ClickGameComponent } from './click-game/click-game.component';
 const routes: Routes = [
   { path: 'tableGame', component: TableMovingGameComponent },
   { path: 'timer', component: TimerComponent },
-  { path: 'cv', component: MyWebCvComponent },
-  { path: 'cv2', component: MyWebCvTableComponent },
+  { path: 'cv', component: MyWebCvTableComponent },
   { path: 'click-game', component: ClickGameComponent }
 ];
 

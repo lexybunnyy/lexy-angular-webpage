@@ -9,7 +9,7 @@ import { ClickGameComponent } from './click-game/click-game.component';
 import { TimerComponent } from './timer/timer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialListModule } from './material.module';
-import { MyWebCvComponent } from './my-web-cv/my-web-cv.component';
+import { MyWebCvComponent } from './my-web-cv-old/my-web-cv.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertListComponent } from './alert-list/alert-list.component';
 

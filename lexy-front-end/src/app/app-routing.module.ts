@@ -5,12 +5,16 @@ import { TimerComponent } from './timer/timer.component'
 import { MyWebCvComponent } from './my-web-cv/my-web-cv.component';
 import { MyWebCvTableComponent } from './my-web-cv-table/my-web-cv-table.component';
 import { ClickGameComponent } from './click-game/click-game.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
+  { path: '', component: MyWebCvTableComponent },
+  { path: 'home', component: MyWebCvTableComponent },
   { path: 'tableGame', component: TableMovingGameComponent },
   { path: 'timer', component: TimerComponent },
   { path: 'cv', component: MyWebCvTableComponent },
   { path: 'click-game', component: ClickGameComponent }
+
 ];
 
 @NgModule({

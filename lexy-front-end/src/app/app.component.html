@@ -1,11 +1,32 @@
 <mat-toolbar color="primary" class="no-print">
     <span>Lexy's Website</span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>home</mat-icon>
+    <button mat-button routerLink="/home">
+        <span class="material-icons">home</span>
+        Home
     </button>
-    <button mat-button routerLink="/cv"><span class="material-icons">
-        portrait
-        </span>CV</button>
+
+    <button mat-button [matMenuTriggerFor]="cvmenu">
+        <span class="material-icons">portrait</span>
+        My CVs
+    </button>
+    <mat-menu #cvmenu="matMenu">
+        <button mat-menu-item routerLink="/cv">
+            <span class="material-icons">grid_on</span>
+            Web CV</button>
+        <a mat-menu-item href="assets/lexy_cv_html.pdf" target="_blank">
+            <span class="material-icons">open_in_new</span>
+            CV from HTML 
+        </a>
+        <a mat-menu-item href="assets/lexy_cv_latex.pdf" target="_blank">
+            <span class="material-icons">code</span>
+            CV from Latex
+        </a>
+        <a mat-menu-item href="assets/lexy_cv_word.pdf" target="_blank">
+            <span class="material-icons">format_textdirection_l_to_r</span>
+            CV from Word
+        </a>
+    </mat-menu>
+
     <button mat-button [matMenuTriggerFor]="menu">
         <span class="material-icons">
             calculate

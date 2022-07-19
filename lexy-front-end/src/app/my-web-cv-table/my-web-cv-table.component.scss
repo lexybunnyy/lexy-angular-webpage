@@ -74,3 +74,20 @@ h1 { color: rgb(0, 60, 134); }
         grid-template-columns: 40% 40%;
     }
 }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .grid-container > .name {
+        grid-column: 1 / 6;
+    }
+    .grid-container > .pic {
+        grid-column: 1 / 1;
+    }
+    .grid-container > .details {
+        grid-column: 2 / 6;
+    }
+
+    .grid-container-other > div {
+        grid-column: 1 / 6;
+    }
+}

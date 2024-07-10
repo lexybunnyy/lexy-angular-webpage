@@ -1,5 +1,10 @@
 <!-- app.component.html -->
-
+<html lang="hun">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adó-Gyalu KFT</title>
+</head>
 <div id="ado-gyalu-kft">
   <app-ado-gyalu-kft></app-ado-gyalu-kft>
 </div>
@@ -10,20 +15,26 @@
   <a routerLink="/" fragment="asztalos-referenciak">Asztalos Referenciák</a>
   <a routerLink="/" fragment="kapcsolat-szekesfehervar">Kapcsolat</a>
   <a routerLink="/" fragment="unios-tamogatas">Uniós Támogatás</a>
+  <a [routerLink]="['/facebook-redirect']">Facebook</a>
 </nav>
 
-<div id="konyveles-asztalos-rolunk">
-  <app-konyveles-asztalos-rolunk></app-konyveles-asztalos-rolunk>
-</div>
+<router-outlet></router-outlet>
 
-<div id="asztalos-referenciak">
-  <app-asztalos-referenciak></app-asztalos-referenciak>
-</div>
-<div id="unios-tamogatas">
-  <app-unios-tamogatas></app-unios-tamogatas>
-</div>
-
-<div id="kapcsolat-szekesfehervar">
-  <app-kapcsolat-szekesfehervar></app-kapcsolat-szekesfehervar>
-</div>
+@if (!isOtherPageLoaded) {
+  <div id="konyveles-asztalos-rolunk">
+    <app-konyveles-asztalos-rolunk></app-konyveles-asztalos-rolunk>
+  </div>
+  
+  <div id="asztalos-referenciak">
+    <app-asztalos-referenciak></app-asztalos-referenciak>
+  </div>
+  
+  <div id="unios-tamogatas">
+    <app-unios-tamogatas></app-unios-tamogatas>
+  </div>
+  
+  <div id="kapcsolat-szekesfehervar">
+    <app-kapcsolat-szekesfehervar></app-kapcsolat-szekesfehervar>
+  </div>  
+}
 

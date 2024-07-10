@@ -1,26 +1,3 @@
-/*
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  providers:[
-    importProvidersFrom(BrowserModule),
-    importProvidersFrom(BrowserAnimationsModule),
-  ],
-  standalone: true,
-  styleUrls: ['./app.component.less'],
-  animations: [
-    trigger('fadeAnimation', [
-      transition('* => *', [
-        style({ opacity: 0 }),
-        animate('0.5s', style({ opacity: 1 }))
-      ])
-    ])
-  ]
-})
-export class AppComponent { 
-}*/
-
-
 import { Component, inject, OnInit } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
@@ -29,7 +6,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
-import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ServicesComponent } from './services/services.component';
 import { AdoGyaluKftComponent } from './ado-gyalu-kft/ado-gyalu-kft.component';
 import { AsztalosReferenciakComponent } from './asztalos-referenciak/asztalos-referenciak.component';
@@ -37,6 +14,7 @@ import { KapcsolatSzekesfehervarComponent } from './kapcsolat-szekesfehervar/kap
 import { KonyvelesAsztalosRolunkComponent } from './konyveles-asztalos-rolunk/konyveles-asztalos-rolunk.component';
 import { KonyvelesDokumentumokComponent } from './konyveles-dokumentumok/konyveles-dokumentumok.component';
 import { UniosTamogatasComponent } from './unios-tamogatas/unios-tamogatas.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -52,24 +30,27 @@ import { UniosTamogatasComponent } from './unios-tamogatas/unios-tamogatas.compo
     KonyvelesAsztalosRolunkComponent,
     KonyvelesDokumentumokComponent,
     UniosTamogatasComponent,
-    ServicesComponent
+    ServicesComponent,
+    CommonModule
   ],
   animations: [
-    trigger('fadeAnimation', [
+    /*trigger('fadeAnimation', [
       transition('* => *', [
         style({ opacity: 0 }),
         animate('0.5s', style({ opacity: 1 }))
       ])
-    ])
+    ])*/
   ],
   providers: [
     provideAnimations()
   ]
 })
-export class AppComponent implements OnInit{ 
+export class AppComponent implements OnInit {
+  isOtherPageLoaded = false; 
+  isPageRedirectedToFacebook = false;
   private route = inject(ActivatedRoute);
 
-  title = 'ado-gyalu-web-ang17';
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.route.fragment.subscribe(fragment => {
@@ -77,6 +58,12 @@ export class AppComponent implements OnInit{
         document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth' });
       }
     });
+    //this.redirectToFacebook();
+  }
+
+  redirectToFacebook(): void {
+    this.isPageRedirectedToFacebook = true;
+    this.router.navigate(['/facebook-redirect']);
   }
 }
 

@@ -1,22 +1,76 @@
-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 10px;
-  }
-  
-  nav ul li {
-    display: inline;
-  }
-  
-  nav ul li a {
-    text-decoration: none;
-    padding: 10px;
-    background: #007bff;
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.menu-on-the-top {
+  .floating-menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
     color: white;
-    border-radius: 5px;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000;
   }
-  
-  nav ul li a:hover {
-    background: #0056b3;
+
+  .floating-menu a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: inline-block;
   }
+
+  .floating-menu a:hover {
+    background-color: #575757;
+  }
+
+  .content {
+    margin-top: 60px;
+    //To avoid content being hidden under the menu 
+    padding: 20px;
+  }
+}
+
+.menu-under-picturep {
+  .home-picture {
+    width: 100%;
+    height: auto;
+  }
+
+  .menu-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 1000;
+  }
+
+  .floating-menu {
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+  }
+
+
+  .floating-menu a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .floating-menu a:hover {
+    background-color: #575757;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+}

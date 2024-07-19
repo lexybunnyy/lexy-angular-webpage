@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './kapcsolat-szekesfehervar.component.html',
-  styleUrl: './kapcsolat-szekesfehervar.component.less'
+  styleUrl: './kapcsolat-szekesfehervar.component.less',
 })
 export class KapcsolatSzekesfehervarComponent {
 

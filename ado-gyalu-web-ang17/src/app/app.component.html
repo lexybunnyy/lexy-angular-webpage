@@ -1,40 +1,46 @@
 <!-- app.component.html -->
 <html lang="hun">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adó-Gyalu KFT</title>
 </head>
-<div id="ado-gyalu-kft">
-  <app-ado-gyalu-kft></app-ado-gyalu-kft>
-</div>
-
-<nav>
-  <a routerLink="/" fragment="ado-gyalu-kft"></a>
-  <a routerLink="/" fragment="konyveles-asztalos-rolunk">Rólunk</a>
-  <a routerLink="/" fragment="asztalos-referenciak">Asztalos Referenciák</a>
-  <a routerLink="/" fragment="kapcsolat-szekesfehervar">Kapcsolat</a>
-  <a routerLink="/" fragment="unios-tamogatas">Uniós Támogatás</a>
-  <a [routerLink]="['/facebook-redirect']">Facebook</a>
-</nav>
-
-<router-outlet></router-outlet>
-
-@if (!isOtherPageLoaded) {
-  <div id="konyveles-asztalos-rolunk">
-    <app-konyveles-asztalos-rolunk></app-konyveles-asztalos-rolunk>
+<body class="menu-on-the-top">
+  <div class='home-picture' id="ado-gyalu-kft">
+    <app-ado-gyalu-kft></app-ado-gyalu-kft>
   </div>
-  
-  <div id="asztalos-referenciak">
-    <app-asztalos-referenciak></app-asztalos-referenciak>
+
+
+  <div class="menu-container">
+    <nav class="floating-menu">
+      <a routerLink="/" fragment="ado-gyalu-kft"></a>
+      <a routerLink="/" fragment="konyveles-asztalos-rolunk">Rólunk</a>
+      <a routerLink="/" fragment="asztalos-referenciak">Asztalos Referenciák</a>
+      <a routerLink="/" fragment="kapcsolat-szekesfehervar">Kapcsolat</a>
+      <a routerLink="/" fragment="unios-tamogatas">Uniós Támogatás</a>
+      <a [routerLink]="['/facebook-redirect']">Facebook</a>
+    </nav>
   </div>
-  
-  <div id="unios-tamogatas">
-    <app-unios-tamogatas></app-unios-tamogatas>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+    @if (!isOtherPageLoaded) {
+      <section id="konyveles-asztalos-rolunk" class="section">
+        <app-konyveles-asztalos-rolunk></app-konyveles-asztalos-rolunk>
+      </section>
+      
+      <section id="asztalos-referenciak" class="section">
+        <app-asztalos-referenciak></app-asztalos-referenciak>
+      </section>
+      
+      <section id="unios-tamogatas" class="section">
+        <app-unios-tamogatas></app-unios-tamogatas>
+      </section>
+      
+      <section id="kapcsolat-szekesfehervar" class="section">
+        <app-kapcsolat-szekesfehervar></app-kapcsolat-szekesfehervar>
+      </section>  
+    }  
   </div>
-  
-  <div id="kapcsolat-szekesfehervar">
-    <app-kapcsolat-szekesfehervar></app-kapcsolat-szekesfehervar>
-  </div>  
-}
+</body>
 

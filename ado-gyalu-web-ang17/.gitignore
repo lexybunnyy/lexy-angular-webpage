@@ -6,6 +6,10 @@
 /out-tsc
 /bazel-out
 
+/src/assets/referenciak
+/src/assets/referenciak_mini_fooldal
+/src/assets/logo
+
 # Node
 /node_modules
 npm-debug.log

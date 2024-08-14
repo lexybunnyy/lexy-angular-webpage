@@ -1,0 +1,32 @@
+-----------
+Belépés
+-----------
+ - https://us-east-2.console.aws.amazon.com/
+ - bejelentkezés
+ - Felső menü: Services/Storage/S3
+ - /www.adogyalu.net mappa
+ - (https://s3.console.aws.amazon.com/s3/buckets/www.adogyalu.net/konyveles/?region=us-east-2&tab=overview) 
+
+ - konyveles/ mappába blog.csv-t kell módosítani (letöltés, újra feltöltés)
+ - konyveles/ ebbe a mappába töltsd fel a pdfeket is. Lehetőleg ne tartalmazzon a fájl neve ékezeteket és spaceeket
+
+ - pictures/ asztalos referenciák - a kategóriákat ne módosítsd, de a mappákba a képeket nyugodtan lehet törölni, beszúrni.
+
+-----------------
+CSV formátum használata:
+----------------- 
+ - Elválasztójel 
+ - Elválasztók: Pontosvessző
+ - csak csv formátumu pontosvesszővel elválasztott a jó
+ - A leírásba <br>-el lehet entereket rakni.
+ - Ha nem saját anyagot raksz fel, Link-hez tehetsz egy weboldal címet is: 
+ 	- http://lexybunnyy.net/cv_helper/alexa_cv_eng.pdf
+	- http://www.mongigi.gportal.hu/
+	- konyveles/2018evi_valtozasok.pdf
+
+
+Ha nem vagy benne biztos hogy jó-e a fájl először töltsd fel
+blog_test.csv-t és nézd meg ezt az oldalt:
+http://www.adogyalu.net/linkblog-angular-by-lexybunnyy/linkblog.html
+
+Ha itt jó a másik is jó lesz :) 

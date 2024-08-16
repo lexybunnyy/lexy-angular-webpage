@@ -15,6 +15,7 @@ import { KonyvelesAsztalosRolunkComponent } from './konyveles-asztalos-rolunk/ko
 import { KonyvelesDokumentumokComponent } from './konyveles-dokumentumok/konyveles-dokumentumok.component';
 import { UniosTamogatasComponent } from './unios-tamogatas/unios-tamogatas.component';
 import { CommonModule } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,7 @@ import { CommonModule } from '@angular/common';
     ])*/
   ],
   providers: [
-    provideAnimations()
+    provideAnimations(),
   ]
 })
 export class AppComponent implements OnInit {
@@ -65,5 +66,9 @@ export class AppComponent implements OnInit {
     this.isPageRedirectedToFacebook = true;
     this.router.navigate(['/facebook-redirect']);
   }
+}
+
+function boostrapApplication(App: any, arg1: { providers: any[]; }): import("@angular/core").Provider {
+  throw new Error('Function not implemented.');
 }
 

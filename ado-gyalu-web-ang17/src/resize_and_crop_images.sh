@@ -2,9 +2,9 @@
 ## sudo apt-get install imagemagick
 
 # List of directories containing the images
-INPUT_DIRECTORIES=("./assets/referenciak/ajto" "./assets/referenciak/butor")
+INPUT_DIRECTORIES=("./assets/referenciak/ajto" "./assets/referenciak/butor" "./assets/referenciak/konyhabutor" "./assets/referenciak/lepcso" "./assets/referenciak/nyilaszarok")
 # List of corresponding directories to save resized and cropped images
-OUTPUT_DIRECTORIES=("./assets/referenciak_mini_fooldal/ajto" "./assets/referenciak_mini_fooldal/butor")
+OUTPUT_DIRECTORIES=("./assets/referenciak_mini_fooldal/ajto" "./assets/referenciak_mini_fooldal/butor" "./assets/referenciak_mini_fooldal/konyhabutor" "./assets/referenciak_mini_fooldal/lepcso" "./assets/referenciak_mini_fooldal/nyilaszarok")
 # Desired dimensions
 TARGET_SIZE=220
 # Function to resize and crop images
